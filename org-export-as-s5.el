@@ -21,6 +21,11 @@ Optional keys include %author, %title and %date.")
       (concat "\n#+BEGIN_HTML\n<div class=\"notes\">\n#+END_HTML\n" content "\n#+BEGIN_HTML\n</div\n#+END_HTML\n")
     (org-export-format-drawer name content)))
 
+(defun description-extract-minutes (description)
+  (if (eq nil (string-match "^\\([0-9]+\\) minutes" description))
+      (quote "120")
+    (match-string 1 description)))
+
 (defun org-export-as-s5
   (arg &optional ext-plist to-buffer body-only pub-dir)
   "Wrap `org-export-as-html' in setting for S5 export."
@@ -78,7 +83,9 @@ Optional keys include %author, %title and %date.")
                    (join `("<div class=\"layout\">"
                            "<div id=\"controls\"><!-- no edit --></div>"
                            "<div id=\"currentSlide\"><!-- no edit --></div>"
-                           "<div id=\"header\"></div>"
+                           "<div id=\"header\"><div id=\"timer\"><span id=\"timeLeft\">"
+                           ,(description-extract-minutes description)
+                           "</span>Minutes</div></div>"
                            "<div id=\"footer\">"
                            ,(org-fill-template org-s5-title-string-fmt info)
                            "</div>"
