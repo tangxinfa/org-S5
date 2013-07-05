@@ -45,6 +45,7 @@ Optional keys include %author, %title and %date.")
            (join `("<!-- configuration parameters -->"
                    "<meta name=\"defaultView\" content=\"slideshow\" />"
                    "<meta name=\"controlVis\" content=\"hidden\" />"
+                   "<base target=\"_blank\" />"
                    "<!-- style sheet links -->"
                    ,(sheet (concat org-s5-theme "/slides.css")
                            "projection" "slideProj")
